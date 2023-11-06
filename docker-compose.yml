@@ -1,0 +1,64 @@
+version: '3.5'
+
+services:
+  user_service:
+    build:
+      context: ./ds_be/user_service
+      dockerfile: Dockerfile
+    command: bash -c 'sleep 20 && npm start'  # Add a delay before starting
+    container_name: user_service
+    environment:
+      - PORT=3000
+    ports:
+      - '3000:3000'
+      - '4001:4001'
+    depends_on:
+      - user_database
+
+  device_service:
+    build:
+      context: ./ds_be/device_service
+      dockerfile: Dockerfile
+    command: bash -c 'sleep 20 && npm start'  # Add a delay before starting
+    container_name: device_service
+    environment:
+      - PORT=3001
+    ports:
+      - '3001:3001'
+      - '4002:4002'
+    depends_on:
+      - device_database
+
+  device_database:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: device_database
+    environment:
+      MYSQL_DATABASE: nestjs_devices
+      MYSQL_ALLOW_EMPTY_PASSWORD: ok
+      MYSQL_ROOT_PASSWORD: dieantwort
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - '3308:3306'
+
+  user_database:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: user_database
+    environment:
+      MYSQL_DATABASE: nestjs_users
+      MYSQL_ALLOW_EMPTY_PASSWORD: ok
+      MYSQL_ROOT_PASSWORD: dieantwort
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - '3307:3306'
+
+  react_app:
+    container_name: frontend
+    build:
+      context: ./ds_fe
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    stdin_open: true
+    tty: true
