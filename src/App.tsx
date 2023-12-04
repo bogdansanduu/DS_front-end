@@ -6,6 +6,10 @@ import SidebarNav from "./components/sidebar/SidebarNav";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "./types";
+import { io } from "socket.io-client";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   display: flex;
@@ -33,8 +37,35 @@ function App() {
     }
   }, [token, navigate, currentUser]);
 
+  useEffect(() => {
+    const socket = io("http://localhost:3001");
+
+    socket.on("CONSUMPTION_EXCEEDED", (data) => {
+      if (!currentUser) {
+        return;
+      }
+
+      const { deviceId, userId, message } = data;
+
+      if (userId === currentUser.id) {
+        toast(message, {
+          closeOnClick: true,
+          autoClose: 5000,
+          position: "top-right",
+        });
+
+        console.log("CONSUMPTION_EXCEEDED", data);
+      }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [currentUser]);
+
   return token ? (
     <Container>
+      <ToastContainer />
       <SidebarNav setToken={setToken} />
       <Main>
         <Outlet />

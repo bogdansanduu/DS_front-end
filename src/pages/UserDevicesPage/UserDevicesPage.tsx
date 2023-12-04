@@ -64,6 +64,7 @@ const UserDevicesPage = () => {
               />
               <CardContent>
                 <Typography variant="body2" color="textSecondary">
+                  <p>DEVICE ID: {device.id}</p>
                   <p>USER ID: {device.userId}</p>
                   <p>MAX HOURLY CONSUMPTION: {device.maxHourlyConsumption}</p>
                 </Typography>

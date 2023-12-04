@@ -16,7 +16,7 @@ const RoleRestrictedRoute = ({ children, role }: UserRouteProps) => {
   const userHasRequiredRole = currentUser && currentUserRoles.includes(role);
 
   if (!userHasRequiredRole) {
-    return <Navigate to={"/accessDenied"} replace={true} />;
+    return <Navigate to={"/access_denied"} replace={true} />;
   }
 
   return children;

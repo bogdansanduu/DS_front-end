@@ -18,6 +18,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router";
 import Button from "@mui/material/Button";
 import PeopleIcon from "@mui/icons-material/People";
+import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
 
 import { SET_CURRENT_USER } from "../../store/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -143,6 +144,29 @@ const SidebarNav = ({ setToken }: SidebarNavProps) => {
                     <ChargingStationIcon />
                   </ListItemIcon>
                   {open && <ListItemText primary={"Devices"} />}
+                </ListItemButton>
+              </ListItem>
+            )}
+            {isUser && (
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                  onClick={() => handleClick("/energy_consumption")}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <ElectricBoltIcon />
+                  </ListItemIcon>
+                  {open && <ListItemText primary={"Energy Consumption"} />}
                 </ListItemButton>
               </ListItem>
             )}

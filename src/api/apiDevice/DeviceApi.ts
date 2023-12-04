@@ -26,6 +26,11 @@ interface AssociateDeviceParams {
   deviceId: number;
 }
 
+interface GetTotalConsumptionForUserParams {
+  userId: number;
+  date: string;
+}
+
 const deviceApi = axios.create({
   baseURL: "http://localhost:3001/device",
 });
@@ -80,4 +85,10 @@ export const associateDevice = ({
   return deviceApi.patch(`/associateDevice/${deviceId}`, { userId });
 };
 
+export const getTotalConsumptionForUser = ({
+  userId,
+  date,
+}: GetTotalConsumptionForUserParams) => {
+  return deviceApi.get(`/getTotalConsumptionForUser/${userId}/${date}`);
+};
 export default deviceApi;

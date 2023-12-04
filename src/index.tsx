@@ -19,6 +19,7 @@ import { ROLE } from "./constants";
 import UsersPage from "./pages/UsersPage/UsersPage";
 import AllDevicesPage from "./pages/AllDevicesPage/AllDevicesPage";
 import UserDevicesPage from "./pages/UserDevicesPage/UserDevicesPage";
+import EnergyConsumptionPage from "./pages/EnegryConsumptionPage/EnergyConsumptionPage";
 
 const NotImplemented = () => {
   return <div>Not Implemented yet</div>;
@@ -47,6 +48,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/energy_consumption",
+        element: (
+          <RoleRestrictedRoute role={ROLE.User}>
+            <EnergyConsumptionPage />
+          </RoleRestrictedRoute>
+        ),
+      },
+      {
         path: "/users",
         element: (
           <RoleRestrictedRoute role={ROLE.Admin}>
@@ -63,11 +72,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/myAccount",
-        element: <NotImplemented />,
-      },
-      {
-        path: "/accessDenied",
+        path: "/access_denied",
         element: <AccessDeniedPage />,
       },
     ],
