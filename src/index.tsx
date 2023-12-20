@@ -20,6 +20,9 @@ import UsersPage from "./pages/UsersPage/UsersPage";
 import AllDevicesPage from "./pages/AllDevicesPage/AllDevicesPage";
 import UserDevicesPage from "./pages/UserDevicesPage/UserDevicesPage";
 import EnergyConsumptionPage from "./pages/EnegryConsumptionPage/EnergyConsumptionPage";
+import ChatPage from "./pages/ChatPage/ChatPage";
+import AdminChatClientPage from "./pages/AdminChatClientPage/AdminChatClientPage";
+import AdminChatAdminPage from "./pages/AdminChatAdminPage/AdminChatAdminPage";
 
 const NotImplemented = () => {
   return <div>Not Implemented yet</div>;
@@ -68,6 +71,26 @@ const router = createBrowserRouter([
         element: (
           <RoleRestrictedRoute role={ROLE.Admin}>
             <AllDevicesPage />
+          </RoleRestrictedRoute>
+        ),
+      },
+      {
+        path: "/chat",
+        element: <ChatPage />,
+      },
+      {
+        path: "/admin_chat_client",
+        element: (
+          <RoleRestrictedRoute role={ROLE.User}>
+            <AdminChatClientPage />
+          </RoleRestrictedRoute>
+        ),
+      },
+      {
+        path: "/admin_chat_admin",
+        element: (
+          <RoleRestrictedRoute role={ROLE.Admin}>
+            <AdminChatAdminPage />
           </RoleRestrictedRoute>
         ),
       },

@@ -10,9 +10,25 @@ export interface UserType {
   roles: { id: number; name: string }[];
 }
 
+export interface Message {
+  id: number;
+  userId: number;
+  userName: string;
+  text: string;
+  createdAt: string;
+  seenBy: { id: number; userId: number }[];
+}
+
+export interface ChatRoomType {
+  id: number;
+  hostId: number;
+  name: string;
+}
+
 export enum USER_ACTIONS {
   SET_CURRENT_USER = "SET_CURRENT_USER",
   SET_USERS = "SET_USERS",
+  SET_CURRENT_USER_CHAT_ROOM = "SET_CURRENT_USER_CHAT_ROOM",
 }
 
 //--------------DEVICE------------

@@ -19,9 +19,12 @@ import { useNavigate } from "react-router";
 import Button from "@mui/material/Button";
 import PeopleIcon from "@mui/icons-material/People";
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
+import ChatIcon from "@mui/icons-material/Chat";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import { useDispatch, useSelector } from "react-redux";
 
 import { SET_CURRENT_USER } from "../../store/actions/UserActions";
-import { useDispatch, useSelector } from "react-redux";
 import { INITIAL_STATE_USER } from "../../store/reducers/UserReducer";
 import { AppBar, Drawer, DrawerHeader, LogoText } from "./styledComponents";
 import { RootState } from "../../types";
@@ -213,6 +216,73 @@ const SidebarNav = ({ setToken }: SidebarNavProps) => {
                     <ChargingStationIcon />
                   </ListItemIcon>
                   {open && <ListItemText primary={"All Devices"} />}
+                </ListItemButton>
+              </ListItem>
+            )}
+            <ListItem disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+                onClick={() => handleClick("/chat")}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ChatIcon />
+                </ListItemIcon>
+                {open && <ListItemText primary={"Chat"} />}
+              </ListItemButton>
+            </ListItem>
+            {isUser && (
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                  onClick={() => handleClick("/admin_chat_client")}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <SupervisorAccountIcon />
+                  </ListItemIcon>
+                  {open && <ListItemText primary={"Admin Chat"} />}
+                </ListItemButton>
+              </ListItem>
+            )}
+            {isAdmin && (
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                  onClick={() => handleClick("/admin_chat_admin")}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <QuestionAnswerIcon />
+                  </ListItemIcon>
+                  {open && <ListItemText primary={"Admin Chat"} />}
                 </ListItemButton>
               </ListItem>
             )}

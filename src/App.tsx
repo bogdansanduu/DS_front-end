@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { Outlet, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./App.css";
 import SignIn from "./components/authentication/SignIn";
-import { Outlet, useNavigate } from "react-router-dom";
 import SidebarNav from "./components/sidebar/SidebarNav";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
 import { RootState } from "./types";
-import { io } from "socket.io-client";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { INITIAL_STATE_USER } from "./store/reducers/UserReducer";
 
 const Container = styled.div`
   display: flex;
@@ -41,11 +42,11 @@ function App() {
     const socket = io("http://localhost:3001");
 
     socket.on("CONSUMPTION_EXCEEDED", (data) => {
-      if (!currentUser) {
+      if (currentUser === INITIAL_STATE_USER) {
         return;
       }
 
-      const { deviceId, userId, message } = data;
+      const { userId, message } = data;
 
       if (userId === currentUser.id) {
         toast(message, {
